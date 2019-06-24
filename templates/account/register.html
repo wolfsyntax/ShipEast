@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+    
+{% block content %}
+
+{% include 'sitemap/navbar.html' %}
+<section class="px-5 px-md-0 py-5" style="height: 100vh;">
+    <div class="row py-0 py-md-5" style="vertical-align: middle !important;">
+        <div class="col-md-4 col-md-offset-4 text-center" >
+            <h1 class="card-title">{% trans "Signup" %}</h1>
+
+            <p>Please, sign up using the following form: {{ now }}</p>
+
+            <form method="POST" class="form-horizontal" style="margin: auto !important;">{% csrf_token %}
+                <div class="form-row my-2">
+
+                    <div class="col-12 col-lg-6 py-2 py-md-0">
+                        <input type="text" name="first_name" class="form-control zround" placeholder="First name" required="" value="{% if user_form.first_name.value %}{{user_form.first_name.value}}{% endif %}">
+                        {% if user_form.first_name.errors %}
+                        <small>
+                            {% for error in user_form.first_name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+
+                    <div class="col col-lg-6">
+                        <input type="text" name="last_name" class="form-control zround" placeholder="Last name" required="" value="{% if user_form.last_name.value %}{{user_form.last_name.value}}{% endif %}">
+                        {% if user_form.last_name.errors %}
+                        <small>
+                            {% for error in user_form.last_name.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="col">
+                        <input type="text" name="phone" class="form-control zround" placeholder="Mobile number" required="" value="{% if user_form.phone.value %}{{user_form.phone.value}}{% endif %}">
+                        {% if user_form.phone.errors %}
+                        <small>
+                            {% for error in user_form.phone.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="form-row my-2">
+                    <div class="col">
+                        <input type="email" name="email" class="form-control zround" placeholder="Email" required="" value="{% if user_form.email.value %}{{user_form.email.value}}{% endif %}">
+                        {% if user_form.email.errors %}
+                        <small>
+                            {% for error in user_form.email.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}                        
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="col">
+                        <input type="text" name="trn" class="form-control zround" placeholder="TRN" required="" value="{% if user_form.trn.value %}{{user_form.trn.value}}{% endif %}">
+                        {% if user_form.trn.errors %}
+                        <small>
+                            {% for error in user_form.trn.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}                        
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="col">
+                        <input type="text" name="address" class="form-control zround" placeholder="Address" required="" value="{% if user_form.address.value %}{{user_form.address.value}}{% endif %}">
+                        {% if user_form.address.errors %}
+                        <small>
+                            {% for error in user_form.address.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}                    
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+                    <div class="col">
+                        <select name="parish" class="custom-select custom-zround" required="">
+                            <option>Choose...</option>
+                            <option value="St. Andrew" {% if user_form.parish.value == 'St. Andrew' %}selected{% endif %}>Kingston</option>
+                            <option value="Portland" {% if user_form.parish.value == 'Portland' %}selected{% endif %}>St. Thomas</option>
+                            <option value="St. Catherine" {% if user_form.parish.value == 'St. Catherine' %}selected{% endif %}>St. Mary</option>
+                            <option value="St. Ann" {% if user_form.parish.value == 'St. Ann' %}selected{% endif %}>Manchester</option>
+                            <option value="Clarendon" {% if user_form.parish.value == 'Clarendon' %}selected{% endif %}>Hanover</option>
+                            <option value="Westmoreland" {% if user_form.parish.value == 'Westmoreland' %}selected{% endif %}>St. James</option>
+                            <option value="Trelawny" {% if user_form.parish.value == 'Trelawny' %}selected{% endif %}>St. Elizabeth</option>
+                        </select>
+                        {% if user_form.parish.errors %}
+                        <small>
+                            {% for error in user_form.parish.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}                        
+                    </div>
+                </div>
+
+                <div class="form-row my-2">
+
+                    <div class="col-12 col-lg-6">
+                        <input type="password" name="passwd" class="form-control zround" placeholder="Password" required="">
+                        {% if user_form.passwd.errors %}
+                        <small>
+                            {% for error in user_form.passwd.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </div>
+
+                    <div class="col col-lg-6 mt-2 mt-md-0">
+                        <input type="password" name="conf_password" class="form-control zround" placeholder="Confirm Password" required="">
+                        {% if user_form.conf_password.errors %}
+                        <small>
+                            {% for error in user_form.conf_password.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </small>
+                        {% endif %}                        
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <label class="checkbox-inline"><input type="checkbox" name="is_agree" id="is_agree" required=""> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+                    {% if user_form.is_agree.errors %}
+                    <small>
+                    {% for error in user_form.is_agree.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    </small>
+                    {% endif %}                    
+                </div>
+        
+                <div class="form-row my-3">
+                    <button type="submit" class="col btn btn-danger custom-zround" id="reg_submit">Create Account</button>
+                </div>
+
+                <div class="form-row my-3">
+                    <div class="col">
+                        <p class="form-text">Already have an account? <a href="{% url 'account:login' %}" class="nav-link d-inline-block">Login</a></p>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

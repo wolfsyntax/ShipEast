@@ -1,0 +1,78 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+     <!--Page Title-->
+<section class="page-title text-center" style="background-image:url({% static 'img/service/Cargo.jpg' %});">
+    <div class="container">
+        <div class="title-text">
+            <h1>contact</h1>
+            <ul class="title-menu clearfix">
+                <li>
+                    <a href="{% url 'home' %}">home &nbsp;/</a>
+                </li>
+                <li>contact</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+
+    <!--==================================
+=            Contact Form            =
+===================================-->
+<section class="section contact">
+    <!-- container start -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- address start -->
+                <div class="address-block">
+                    <!-- Location -->
+                    <div class="media">
+                        <i class="fa fa-map-o"></i>
+                        <div class="media-body">
+                            <h3>Location</h3>
+                            <p>Yallahs
+                                <br>St Thomas</p>
+                        </div>
+                    </div>
+                    <!-- Phone -->
+                    <div class="media">
+                        <i class="fa fa-phone"></i>
+                        <div class="media-body">
+                            <h3>Phone</h3>
+                            <p>
+                                 <a href="tel:+1 876 891 2375">
+                                <span>1876 891 2375</span>
+                          </a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="media">
+                        <i class="fa fa-envelope-o"></i>
+                        <div class="media-body">
+                            <h3>Email</h3>
+                            <a href="shipeast85@gmail.com">
+                                    <span>shipeast85@gmail.com</span>
+                              </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- address end -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--================================
+=            Google Map            =
+=================================-->
+<section class="map">
+    <!-- Google Map -->
+    <div id="map"></div>
+</section>
+<!--====  End of Google Map  ====-->
+
+{% endblock %}

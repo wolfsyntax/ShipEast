@@ -1,0 +1,63 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+
+    <!--Page Title-->
+<section class="page-title text-center" style="background-image:url({% static 'img/service/Cargo.jpg' %});">
+    <div class="container">
+        <div class="title-text">
+            <h1>service</h1>
+            <ul class="title-menu clearfix">
+                <li>
+                    <a href="{% url 'home' %}">home &nbsp;/</a>
+                </li>
+                <li>service</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+
+    <!--Service Section-->
+<section class="service-section bg-gray section">
+    <div class="container">
+        <div class="section-title text-center">
+            <h3>Provided
+                <span>Services</span>
+            </h3>
+            <p>Our service is quick, effecient and reliable from we receive your package at our<br> wearhouse
+                location to its delivery to you here in jamaica</p>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="single-service-three wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                        <div class="service-icon-three"><i class="fa fa-truck"></i></div>
+                        <h4>road freight</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry, lorem Ipsu.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="single-service-three wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                        <div class="service-icon-three"><i class="fa fa-plane"></i></div>
+                        <h4>air freight</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry, lorem Ipsu.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="single-service-three wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                        <div class="service-icon-three"><i class="fa fa-ship"></i></div>
+                        <h4>Sea Freight</h4>
+                        <p>We offer a reliable shipment service for you medium and large products and equipments. Contact us today for quote.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</section>
+<!--End Service Section-->
+{% endblock %}

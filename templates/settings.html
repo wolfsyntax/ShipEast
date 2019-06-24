@@ -1,0 +1,26 @@
+{%  extends 'base.html' %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block content %}
+{% block head_title %}<h1 class="">Setting</h1>{% endblock %}<br>
+<section class="container">
+
+        <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+    <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                 {% bootstrap_form u_form %}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">Update</button>
+            </div>
+        </form>
+        </div>
+        </div>
+</section>
+{% endblock %}

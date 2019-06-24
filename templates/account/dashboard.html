@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <!-- Sidebar -->
+    {% include "sidebar.html" %}
+
+    <!-- Page Content -->
+    <div  id="content">
+        {% include "navbar.html" %}
+
+        <div class="container-fluid" id="body-container">
+            <div class="row my-3">
+                <div class="col">
+                    <div class="card pt-1 pb-0">
+                        <div class="card-body">
+                            <p class="sys-time mt-2 mb-0"><span class="text-dark" style="font-size: 15px;">{% now "F j, Y | l" %}</span><br/><small id="timeDiff" class="text-muted" style="font-size: 15px">{% now "h:i:s A" %}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            &emsp;
+                        </div>
+
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row table-responsive table-responsive-sm text-nowrap ">
+                                    <div class="col">
+                                        <table class="table" id="dashboard_invoice">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Number</th>
+                                                    <th scope="col">Account</th>
+                                                    <th scope="col">Amount</th>
+                                                    <th scope="col">Paid</th>
+                                                    <th scope="col">&emsp;</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">12/08/2017</th>
+                                                    <td><a href="" class="simple-link text-primary font-weight-bold">183935</a></td>
+                                                    <td>{{ user.get_full_name}}</td>
+                                                    <td>650.00</td>
+                                                    <td>650.00</td>
+                                                    <td><i class="fa fa-print"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

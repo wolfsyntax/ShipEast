@@ -1,0 +1,83 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+     <!--Page Title-->
+<section class="page-title text-center" style="background-image:url({% static 'img/service/Cargo.jpg' %});">
+    <div class="container">
+        <div class="title-text">
+            <h1>HOW IT WORKS</h1>
+            <ul class="title-menu clearfix">
+                <li>
+                    <a href="{% url 'home' %}">home &nbsp;/</a>
+                </li>
+                <li>HOW IT WORKS</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+<!--how it works Section-->
+<section class="service-section bg-gray section">
+    <div class="container">
+        <div class="section-title text-center">
+            <h3>THE ADVANTAGES OF ONLINE SHOPPING
+                <span></span>
+            </h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet. qui suscipit atque <br>
+                fugiat officia corporis rerum eaque neque totam animi, sapiente culpa. Architecto!</p>
+        </div>
+        <div class="row items-container clearfix">
+            <div class="item">
+                <div class="inner-box">
+                    <div class="img_holder">
+                             <img src="{% static 'img/works/signup.jpg' %}" alt="signup" class="img-responsive">
+                    </div>
+                    <div class="image-content text-center">
+                            <a href="{% url 'register' %}" class="btn btn-danger btn-lg">SIGNUP</a><br><br>
+                        <p>Get your free U.S. mailing address and unique customer mailbox ID# when you register with </p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="inner-box">
+                    <div class="img_holder">
+                            <img src="{% static 'img/works/online.jpg' %}" alt="online" class="img-responsive">
+                    </div>
+                    <div class="image-content text-center">
+                            <h6>SHOP ON YOUR FAVOURITE ONLINE STORE</h6>
+                        <p>When you shop online, use the shipping address and your unique customer ID#
+                            given to you by </p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="inner-box">
+                    <div class="img_holder">
+                            <img src="{% static 'img/works/pack.jpeg' %}" alt="pack" class="img-responsive">
+                    </div>
+                    <div class="image-content text-center">
+                            <h6>WE SHIP YOUR PACKAGE TO YOU IN JAMAICA</h6>
+                        <p>As soon as we receive your package in the U.S., we will
+                            notify you by email, and immediately process your package for freight to Jamaica.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="inner-box">
+                    <div class="img_holder">
+                            <img src="{% static 'img/works/drop.jpg' %}" alt="drop" class="img-responsive">
+                    </div>
+                    <div class="image-content text-center">
+                            <h6>YOUR PACKAGE IS DELIVERED TO YOU PROMPTLY</h6>
+                        <p>SHIPEAST will notify you as soon as your package arrives in the island,
+                            send you regular updates, and alert you when it's ready for delivery. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End how it works Section-->
+{% endblock %}

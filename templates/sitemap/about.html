@@ -1,0 +1,43 @@
+{%  extends 'base.html' %}
+{% load staticfiles %}
+{% load static %}
+
+{% block content %}
+     <!--Page Title-->
+<section class="page-title text-center" style="background-image:url({% static 'img/service/Cargo.jpg' %});">
+    <div class="container">
+        <div class="title-text">
+            <h1>about</h1>
+            <ul class="title-menu clearfix">
+                <li>
+                    <a href="{% url 'sitemap:home' %}">home &nbsp;/</a>
+                </li>
+                <li>about</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+<!--about section-->
+<!-- Our Story -->
+<section class="story">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                 <img src="{% static 'img/plane.png' %}" alt="doctor" class="img-responsive">
+            </div>
+            <div class="col-md-6">
+                <div class="story-content">
+                    <h2>Our Story</h2>
+                    <h5 class="tagline">"We promise to consistently provide to you our valued customer a fast efficient and reliable service."</h5>
+                    <p> ShipEast Courier was established to provide a high class courier & shipping service to the parish of St. Thomas and neighboring parishes in jamaica</p>
+                    <h6>Mission</h6>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam nihil dolorum beatae consequatur mollitia iure?</p>
+                    <h6>Vision</h6>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda consectetur adipisci, voluptatum dolores nostrum omnis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

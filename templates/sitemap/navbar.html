@@ -1,0 +1,82 @@
+{% load static %}
+<section class="header-uper">
+  <div class="container clearfix">
+
+    <div class="logo">
+      <figure>
+        <a href="{% url 'sitemap:home' %}">
+          <img src="{% static 'img/favicon.ico' %}" height="" width="200" class="img-responsive"   alt="logo">
+        </a>
+      </figure>
+    </div>
+    
+    <div class="right-side mt-4">
+      <ul class="contact-info">
+        <li class="item">
+          <div class="icon-box">
+            <i class="fa fa-envelope-o"></i>
+          </div>
+          <strong>Email</strong>
+          <br>
+          <a href="mailto:shipeast85@gmail.com" class="simple-link">
+            <span>shipeast85@gmail.com</span>
+          </a>
+        </li>
+        
+        <li class="item">
+          <div class="icon-box">
+            <i class="fa fa-phone"></i>
+          </div>
+          <strong>Call Now</strong>
+          <br>
+          
+          <a href="tel:+1 876 891 2375" class="simple-link">
+            <span>1876 891 2375</span>
+          </a>
+        </li>
+      </ul>
+      {% if not request.user.is_authenticated %}
+      <div class="link-btn pl-3">
+        <a href="{% url 'account:login' %}" class="btn-outline-danger btn-style-one simple-link" style="text-decoration: none;">LogIn</a>
+        <a href="{% url 'account:register' %}" class="btn-outline-danger btn-style-one simple-link" style="text-decoration: none;">Signup</a>
+      {% else %}
+        <a href="{% url 'account:dashboard' %}" class="btn-danger btn-style-one simple-link">Dashboard</a>
+        <a href="{% url 'account:logout' %}" class="btn-danger btn-style-one simple-link">LogOut</a>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<!--Header Upper-->
+<nav class="navbar navbar-expand-lg navbar-light bg-danger">
+  <a class="navbar-brand" href="#"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    {% with url_name=request.resolver_match.url_name %}    
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link text-white{% if url_name == 'home' %} active{% endif %}" href="{% url 'sitemap:home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white {% if url_name == 'about' %}active{% endif %}" href="{% url 'sitemap:about' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white {% if url_name == 'how it works' %}active{% endif %}" href="{% url 'sitemap:how_it_works' %}">How it Works</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white {% if url_name == 'service' %}active{% endif %}" href="{% url 'sitemap:service' %}">Service</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white {% if url_name == 'contact' %}active{% endif %}" href="{% url 'sitemap:contact' %}">Contact</a>
+      </li>
+
+    </ul>
+    {% endwith %}
+  </div>
+</nav>
+
+
