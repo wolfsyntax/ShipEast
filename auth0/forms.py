@@ -64,7 +64,7 @@ class UserRegistrationForm(forms.Form):
 
         if password != conf_password :
             self.add_error('conf_password', 'Confirm Password not match.')
-        
+
         return cd
 
     def clean_email(self):
@@ -97,31 +97,31 @@ class UserRegistrationForm(forms.Form):
         data.save()
 
         # email.content_subtype= "text/html"
-        subject = 'Registration Info'
+#        subject = 'Registration Info'
 
-        message = get_template('email_template.html').render(
-            {
-                'first_name': cd['first_name'],
-                'last_name': cd['last_name'],
-                'phone': cd['phone'],
-                'parish': cd['parish'],
-                'trn': cd['trn'],
-                'address': cd['address']
-            }
-        )
+#        message = get_template('email_template.html').render(
+#            {
+#                'first_name': cd['first_name'],
+#                'last_name': cd['last_name'],
+#                'phone': cd['phone'],
+#                'parish': cd['parish'],
+#                'trn': cd['trn'],
+#                'address': cd['address']
+#            }
+#        )
 
-        email_from = settings.EMAIL_HOST_USER
-        email = EmailMultiAlternatives(subject, message, to=[cd['email'],], bcc=['shipeast85@gmail.com', 'mail.goats@gmail.com',],
-                                       reply_to=['airdrop.crazywolf@gmail.com'])
+#        email_from = settings.EMAIL_HOST_USER
+#        email = EmailMultiAlternatives(subject, message, to=[cd['email'],], bcc=['shipeast85@gmail.com', 'mail.goats@gmail.com',],
+#                                       reply_to=['airdrop.crazywolf@gmail.com'])
 
-        send_mail(subject, "", 'airdrop.crazywolf@gmail.com', ['airdrop.crazywolf@gmail.com', ], html_message=message)
+#        send_mail(subject, "", 'airdrop.crazywolf@gmail.com', ['airdrop.crazywolf@gmail.com', ], html_message=message)
 
-        email.content_subtype = "html"
-        email.attach_alternative(message, "text/html")
-        email.send()
+#        email.content_subtype = "html"
+#        email.attach_alternative(message, "text/html")
+#        email.send()
 
 
-        print("\nSubmitted data: {}\n\n".format(data))
+#        print("\nSubmitted data: {}\n\n".format(data))
 #        print("\n\n\nRequest to save data\n\n")
 
 class UserEditForm(forms.Form):

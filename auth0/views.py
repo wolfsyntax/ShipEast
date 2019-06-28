@@ -146,7 +146,7 @@ def dashboard(request):
     context = {
         'section': 'dashboard',
         'main': 'home',
-        'detail' : Detail.objects.get(id=request.user.id),
+        'detail' : Detail.objects.get(user_id=request.user.id),
     }
 
     return render(request, 'account/dashboard.html', context)
