@@ -4,6 +4,7 @@ from .models import Profile, Detail
 from django.conf import settings
 from django.core.mail import EmailMessage, send_mail, EmailMultiAlternatives
 from django.template.loader import get_template, render_to_string
+from django.contrib.auth import update_session_auth_hash
 
 import re
 
@@ -47,7 +48,7 @@ class UserRegistrationForm(forms.Form):
     passwd = forms.CharField(max_length=30, error_messages={'required':'Password is required.'})
     conf_password = forms.CharField(max_length=30, error_messages={'required':'Confirm Password is required.'})
     trn = forms.CharField(max_length=9, error_messages={'required':'TRN is required.'})
-    address = forms.CharField(max_length=30, error_messages={'required':'Address is required.'})
+    address = forms.CharField(max_length=254, error_messages={'required':'Address is required.'})
     parish = forms.ChoiceField(choices=PARISH, error_messages={'required':'Parish is required.'})
     is_agree = forms.BooleanField(error_messages={'required':'You must accept the Term of Use and Policy.'})
     phone = forms.CharField(max_length=10, error_messages={'required':'Mobile number is required.'})
@@ -82,15 +83,12 @@ class UserRegistrationForm(forms.Form):
         """Check if both password matches"""
         cd = self.cleaned_data
 #        print("\n\nDEBUG (forms: clean_conf_password): {}\n".format(cd))
-        if cd['passwd'] != cd['conf_password']:
-            raise forms.ValidationError("Passwords don't match.")
-
         return cd['conf_password']
 
     def save(self):
         cd = self.cleaned_data
         username = cd['email'].split("@")[0]
-        
+
         user_info = User.objects.create_user(username=username, email=cd['email'], password=cd['passwd'])
         user_info.first_name = cd['first_name']
         user_info.last_name = cd['last_name']
@@ -128,11 +126,81 @@ class UserRegistrationForm(forms.Form):
         print("\nSubmitted data: {}\n\n".format(data))
 #        print("\n\n\nRequest to save data\n\n")
 
-class UserEditForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name',)
+class UserEditForm(forms.Form):
 
+    uid = forms.IntegerField()
+    first_name = forms.CharField(max_length=30, error_messages={'required':'First name is required.'})
+    last_name = forms.CharField(max_length=30, error_messages={'required':'Last name is required.'})
+    passwd = forms.CharField(max_length=30, error_messages={'required':'Password is required.'})
+    conf_password = forms.CharField(max_length=30, error_messages={'required':'Confirm Password is required.'})
+    trn = forms.CharField(max_length=9, error_messages={'required':'TRN is required.'})
+    address = forms.CharField(max_length=254, error_messages={'required':'Address is required.'})
+    parish = forms.ChoiceField(choices=PARISH, error_messages={'required':'Parish is required.'})
+    is_agree = forms.BooleanField(error_messages={'required':'You must accept the Term of Use and Policy.'})
+    phone = forms.CharField(max_length=10, error_messages={'required':'Mobile number is required.'})
+    email = forms.CharField(max_length=254, error_messages={'required': 'Email is required.'})
+
+    def clean(self):
+        cd = super(UserEditForm, self).clean()
+        print("\n\nCleaning UserEditForm\n\n")
+        first_name = self.cleaned_data.get('first_name',"")
+        last_name = self.cleaned_data.get('last_name',"")
+        passwd = self.cleaned_data.get('passwd',"")
+        conf_password = self.cleaned_data.get('conf_password',"")
+        email = self.cleaned_data.get("email","")
+        if passwd != conf_password:
+            self.add_error('conf_password', 'Confirm Password not match.')
+            #raise forms.ValidationError("Confirm Password not match")
+
+        if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$', passwd):
+            self.add_error('passwd','Password must contains alpha-numeric and special characters.')
+
+        return cd
+
+    def clean_email(self):
+        cd = self.cleaned_data['email']
+        cdx = self.cleaned_data['uid']
+
+        try:
+            match = User.objects.filter(email=cd).values_list('email')[0][0]
+            old = User.objects.filter(id=cdx).values_list('email')[0][0]
+            #print("\n\n\nOld Data:\n{}\n\nNew Data:\n{}\n\n".format(old,match))
+            if match == old:
+                return cd
+            else:
+                self.add_error('email','Email address is already in use.')
+
+        except User.DoesNotExist:
+            # Unable to find a user, this is fine
+            return cd
+        print("\n\nCleaned Email: {}\n\n".format(cd))
+        # A user was found with this as a username, raise an error.
+        #raise forms.ValidationError('This Email address is already in use.')
+        return cd
+
+    def save(self):
+
+        cd = self.cleaned_data
+        uid = self.cleaned_data['uid']
+        username = cd['email'].split("@")[0]
+        print("\n\n\nForm Data\n\n\n{}".format(username))
+        user_info = User.objects.get(id=uid)#create_user(username=username, email=cd['email'], password=cd['passwd'])
+        user_info.first_name = cd['first_name']
+        user_info.last_name = cd['last_name']
+        user_info.username = username
+        user_info.email = cd.get('email',"")
+
+        user_info.set_password(cd['passwd'])
+
+        user_info.is_staff = True
+        user_info.save()
+        #update_session_auth_hash(request, user_info)
+        data = Detail.objects.get(user_id=uid) #(user_id=user_info.id, phone=cd['phone'], trn=cd['trn'], address=cd['address'], parish=cd['parish'])
+        data.phone = cd['phone']
+        data.trn = cd['trn']
+        data.address = cd['address']
+        data.parish = cd['parish']
+        data.save()
 
 class ProfileEditForm(forms.ModelForm):
     class Meta:

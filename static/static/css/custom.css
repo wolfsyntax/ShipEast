@@ -37,6 +37,11 @@ a[data-toggle="collapse"] {
     border: none !important;
 }
 
+.custom-input {
+    border: none !important;
+    background-color: #e5e5e5 !important;
+    transition:background-color 0.5s ease;
+}
 .table.table-borderless tr th{
     border: none !important;
 }

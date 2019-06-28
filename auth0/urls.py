@@ -10,6 +10,7 @@ urlpatterns = [
 
     url(r'^email/me$',views.emailer, name='send_mail'),
     #url(r'^edit/$', views.edit, name='edit'),
+    
     url(r'^account/settings$', views.account_settings, name='account-setting'),
     url(r'^register/$', views.register, name='register'),
     url(r'^dashboard$', views.dashboard, name='dashboard'),
@@ -29,10 +30,10 @@ urlpatterns = [
 
     #path('register/', auth_views.register, name='register'),
     #path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+#    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
          name='password_reset_done'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+#    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
     path('password-reset-confirm/ <uidb64>/<token>/',

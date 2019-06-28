@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
+from auth0.forms import LoginForm, UserRegistrationForm, UserEditForm #, ProfileEditForm
+
 from .models import Profile, Detail
 from django.contrib.auth.models import User
 
@@ -32,10 +33,11 @@ def user_login(request):
             cd = form.cleaned_data
             username = cd['email'].split("@")[0]
             user = authenticate(username=username, password=cd['password'])
-            print("\n\nDEBUG username: {}\n\n".format(username))
+            #print("\n\nDEBUG username: {}\n\n".format(username))
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    #request.session["userData"] = request.user
                     #return HttpResponse('Authenticated successfully')
                     return HttpResponseRedirect("/dashboard")
                 else:
@@ -86,10 +88,33 @@ def register(request):
 def account_settings(request):
 
     user_id = request.user.id
+    
     context = {
         "user_info" : User.objects.get(id=user_id),
         "personal_detail" : Detail.objects.get(user_id=user_id)
     }
+
+    if request.method == 'POST':
+        #print("\n\n\n\nSubmitted Data: {}\n\n".format(request.POST))
+        new_form = UserEditForm(request.POST)
+        
+        #print("\n\nNew Form (POST): \n{}\n\n{}\n\n\n\n".format(new_form.clean,request.user.id))
+
+        if new_form.is_valid():
+            #return HttpResponse("Form is Valid")
+            new_form.save()
+            return HttpResponseRedirect("/dashboard")
+        #else:
+        #    return HttpResponse("Invalid Form") #Redirect("/account/settings")
+        #else:
+        #    return HttpResponse("Form is not Valid")
+
+    else:
+
+        new_form = UserEditForm()
+
+    context.setdefault('form', new_form)
+
     return render(request,"account/settings.html",context)
 
 #@login_required
