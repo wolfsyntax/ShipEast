@@ -76,7 +76,7 @@ $(document).ready(function(){
     }
 */
 
-  $("#is_agree").change(function(){alert("Changin");
+  $("#is_agree").change(function(){//alert("Changin");
     if(this.checked){
       $("#reg_submit").removeAttr("disabled");
     }else{

@@ -55,11 +55,7 @@ class UserRegistrationForm(forms.Form):
 
     def clean(self):
         cd = super(UserRegistrationForm, self).clean()
-        return cd
 
-    def clean_email(self):
-        # Get the email
-        email = self.cleaned_data.get('email','')
         password = self.cleaned_data['passwd']
         conf_password = self.cleaned_data['conf_password']
 #        print("\n\nDEBUG (forms: clean_passwd): {}\n".format(self.cleaned_data))
@@ -68,6 +64,12 @@ class UserRegistrationForm(forms.Form):
 
         if password != conf_password :
             self.add_error('conf_password', 'Confirm Password not match.')
+        
+        return cd
+
+    def clean_email(self):
+        # Get the email
+        email = self.cleaned_data.get('email','')
 
         # Check to see if any users already exist with this email as a username.
         try:
