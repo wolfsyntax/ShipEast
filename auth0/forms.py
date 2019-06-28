@@ -60,10 +60,19 @@ class UserRegistrationForm(forms.Form):
     def clean_email(self):
         # Get the email
         email = self.cleaned_data.get('email','')
+        password = self.cleaned_data['passwd']
+        conf_password = self.cleaned_data['conf_password']
+#        print("\n\nDEBUG (forms: clean_passwd): {}\n".format(self.cleaned_data))
+        if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$', password):
+            self.add_error('passwd', 'Password must contains alpha-numeric and special characters.')
+
+        if password != conf_password :
+            self.add_error('conf_password', 'Confirm Password not match.')
 
         # Check to see if any users already exist with this email as a username.
         try:
             match = User.objects.get(email=email)
+
         except User.DoesNotExist:
             # Unable to find a user, this is fine
             return email
@@ -71,19 +80,6 @@ class UserRegistrationForm(forms.Form):
         # A user was found with this as a username, raise an error.
         raise forms.ValidationError('This Email address is already in use.')
 
-    def clean_passwd(self):
-
-        password = self.cleaned_data['passwd']
-#        print("\n\nDEBUG (forms: clean_passwd): {}\n".format(self.cleaned_data))
-        if not re.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$', password):
-            raise forms.ValidationError('Password must contains alpha-numeric and special characters.')
-        return password
-
-    def clean_conf_password(self):
-        """Check if both password matches"""
-        cd = self.cleaned_data
-#        print("\n\nDEBUG (forms: clean_conf_password): {}\n".format(cd))
-        return cd['conf_password']
 
     def save(self):
         cd = self.cleaned_data
